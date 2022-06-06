@@ -1,0 +1,317 @@
+%
+% Working notes for political gerrymandering problem.
+%
+\magnification=1095 
+%\hsize=5.41in \vsize=7.5in     %for magnification=1200
+ \hsize=5.91in \vsize=8.18in    %for magnification=1095
+\parindent=20pt \parskip=4pt plus 4pt minus 4pt
+\baselineskip=13pt plus 2pt minus 1pt \lineskiplimit=2pt
+\lineskip=2pt plus 2pt \tolerance=800			%\raggedright
+
+\font\eightmi=cmmi8 \font\eightsy=cmsy8
+\font\rmeight=cmr8  \def\rmVIII{\rmeight \baselineskip=10pt
+ plus 2pt minus 1pt \lineskiplimit=2pt \lineskip=2pt plus 1pt
+ \parskip=0pt \textfont0=\rmeight \textfont1=\eightmi \textfont2=\eightsy
+ \def\strut{\vrule height 7.5pt depth 2.5pt width 0pt}}
+\font\caps=cmcsc10
+%\font\bfVIII=cmbx8  \font\slVIII=cmsl8  \font\itVIII=cmti8 
+%\font\capsVIII=cmcsc10 at 8pt  \font\hlv=phvr 
+%\font\rmXVIII=cmr10 at 18truept
+% Bold mathematical letters, e.g., $\bm\beta$.
+%\font\tenbmi=cmmib10 \font\sevenbmi=cmmib7 \font\fivebmi=cmmib5
+%\textfont11=\tenbmi \scriptfont11=\sevenbmi \scriptscriptfont11=\fivebmi
+%\def\bm#1{{\fam11 #1}}
+
+\input epsf % For Postscript figures: {\epsfxsize=  \epsffile{}}
+
+% Color definitions.
+%\input colordvi
+%\def\BEGINC{\textPeach} \def\ENDC{\textBlack}
+%\let\BEGINC=\relax \let\ENDC=\relax
+
+%\newtoks\footlinesave \footlinesave=\footline % for restoring pagination
+%\nopagenumbers
+
+%\def\today{\ifcase\month\or January\or February\or March\or April\or
+%May\or June\or July\or August\or September\or October\or November\or
+%December\fi\ \number\day, \number\year}
+
+%\newdimen\digitwidth \setbox0=\hbox{\rm0}  % For spacing in tables.
+%\digitwidth=\wd0
+%\catcode`?=\active \def?{\kern\digitwidth} % Inside table box.
+
+% math symbol definitions
+%\def\g{$\gamma$ }\def\ra{\rho_a}\def\ral{\ra(\lambda,x)}
+%\def\Dral{D\ra(\lambda,x)}
+%\def\tn#1{\left\Vert #1\right\Vert_2}
+%\def\mn#1{\left\Vert #1\right\Vert_\infty}
+%\def\Th#1\par{\par{\it\noindent{\caps Theorem}. #1}\par}
+\def\lee{\mathrel{\vcenter{\hbox{$\scriptstyle\mathord<$}\nointerlineskip
+ \vskip 1pt\hbox{$\scriptstyle\mathord=$}}}}
+\def\gee{\mathrel{\vcenter{\hbox{$\scriptstyle\mathord>$}\nointerlineskip
+ \vskip 1pt\hbox{$\scriptstyle\mathord=$}}}}
+\def\real{\mathop{\rm I\!R}\nolimits}
+\def\Rn{\real^n}
+%\def\En{E^n}\def\Enn{E^{n\times n}}
+\def\Rnn{{\bf R}^{n\times n}}
+%\def\bull{\hfill \vrule height6pt width6pt depth0pt}
+%\def\QED{\hfil\penalty 0\null\nobreak\hfill\quad\hbox{\rm Q. E. D.}\par}
+%
+% other definitions.
+%\def\h{\par\hangindent=20pt\hangafter=1\noindent}
+%
+% for underlining multiple words: {\uline text }
+%\def\uline#1 {\underbar{#1} \futurelet\next\ulinecheck}
+%\def\ulinecheck{\ifcat\egroup\noexpand\next \unskip \else \uline\fi}
+%
+% TeX editing macros:  to underline, double-underline, wavy underline,
+% horizontal strike out, slanted strike out "T", use
+% \uline{T}, \uuline{T}, \uwave{T}, \sout{T}, \xout{T}, respectively.
+%\input ulem.sty \input colordvi
+%\def\BC#1#2{\sout{#1}{\textPeach #2\textBlack}} %TeX source markup.
+%
+% for highlighted blurbs:
+%\def\blurb#1{\vadjust{\smallbreak\smallskip  % between horizontal lines
+%\line{\vbox{\hrule \vskip 1 pt\hrule height 2 pt \hbox
+%{\vbox{\smallskip\vbox{\spaceskip=3.3333pt plus 5pt minus 1.11111pt
+%\xspaceskip=5.55555pt plus 5pt \hyphenpenalty=200\hsize=6.0truein
+%{\parindent=10pt\narrower\noindent \hlv #1\par}}\smallskip}}
+%\hrule \vskip 1 pt\hrule height 2pt
+%}}\medskip}}
+%\def\boxedblurb#1{\vadjust{\smallbreak\smallskip  % inside box
+%\line{\hfil\hbox{\vrule\vbox{\hrule \vskip 1 pt\hbox
+%{\kern 1pt\vrule width 2pt\vbox{\hrule height 2 pt\smallskip
+%\vbox{\spaceskip=3.3333pt plus 5pt minus 1.11111pt
+%\xspaceskip=5.55555pt plus 5pt \hyphenpenalty=200\hsize=5.5truein
+%{\parindent=5pt\narrower\noindent \hlv #1\par}}\smallskip
+%\hrule height 2 pt}\vrule width 2pt\kern 1pt}\vskip 1 pt\hrule
+%}\vrule}\hfil}\medskip}}
+%
+% Set up reference labels. Usage: \rn\Name in prologue and \Name\ in
+%				  text instead of [1].
+%\newcount\refNUM \refNUM=0
+%\def\rn#1{\advance\refNUM by 1
+%	\edef#1{\hbox{[\number\refNUM]}}}
+
+\def\u{{\vphantom g}_} \def\EnS{\u En\u S} \def\MnS{\u Mn\u S}
+\def\HnS{\u Hn\u S}
+Public school districts (typically at the city or county level) are
+decomposed into {\it school attendance zones\/} (SAZs), which are clusters
+of {\it student planning areas\/} (SPAs), typically at the neighborhood
+or smaller level. Let the population data 
+ $${\cal P} =\bigl\{\bigl(x,y,\u 0g,\u 1g,\ldots,\u {12}g,
+ \u Eg, \u Mg,\u Hg, \u Ef,\u M\!f,\u H\!f\bigr)\bigr\},$$ where
+$(x,y)$ are geographic coordinates of the approximate geographic center
+of the student planning area (SPA), $\u 0g$, $\u 1g$, $\ldots$, $\u {12}g$
+are the population sizes of grades 0(K), 1, $\ldots$, 12, respectively,
+$\u Eg$, $\u Mg$, $\u Hg$ are the 5-year projected enrollments for elementary
+(grades K--5), middle (grades 6--9), and high (grades 10--12) school
+students, respectively, and $\u Ef$ $\u M\!f$, $\u H\!f$ are the numbers
+of free and reduced meal students for elementary, middle, and high school,
+respectively, for that SPA. The total number of SPAs is $n=|{\cal P}|$.
+The school data for the elementary, middle, and high schools is ${\cal
+S}_E$, ${\cal S}_M$, ${\cal S}_H$, respectively, where each ${\cal S}$ has
+the form
+ $$\bigl\{(x,y,c) \bigm| (x,y) \hbox{ are the geographic coordinates of
+ the school, $c$ is the capacity}\bigr\}.$$
+Let $\EnS=|{\cal S}_E|$, $\MnS=|{\cal S}_M|$, $\HnS=|{\cal S}_H|$
+be the numbers of the different types of schools, and the data for school
+$i$ of type $X$ will be denoted by $(\u Xx_i$, $\u Xy_i$, $\u Xc_i)$.
+
+Assume that the student planning areas, which typically are geographically
+small and compact with boundaries determined by the practical considerations
+of bus routes, major streets, etc., are fixed.  To manage the requirement
+of geographically connected school attendance zones (SAZs), let $\cal G$
+be the ($n\times n$) adjacency matrix
+ $${\cal G}_{ij} = \cases{1,& student planning areas $i$ and $j$ are deemed
+ adjacent,\cr 0,& otherwise.\cr}$$
+Here ``adjacent'' means having a common border of more than just a point.
+
+Denoting student planning area $i$ by $\sigma_i = \bigl(x_i$, $y_i$, $\u
+0g_i$, $\u 1g_i$, $\ldots$, $\u H\!f_i\bigr)$, an acceptable {\it school
+districting\/} is three partitions $\u E{\cal Z}$, $\u M{\cal Z}$, $\u
+H{\cal Z}$ of $\cal P$ of respective sizes $\EnS$, $\MnS$, $\HnS$
+(the numbers of elementary, middle, and high schools, respectively), where
+each subset (SAZ) of $\cal P$
+ $$\u X{\cal Z}_i = \bigl\{\sigma_{j_1},\ldots,\sigma_{j_{\u Xm_i}}\bigr\},
+ \quad i=1, \ldots,\u Xn_S,$$
+($X$ above can be any of $E$, $M$, or $H$) in a partition must be
+geographically connected, compact, and satisfy other physical, political,
+and social constraints described later. School attendance zone
+$\u X{\cal Z}_i$ is defined by its student planning area index set
+$\u X{\cal I}_i = \bigl\{j_1$, $\ldots$, $j_{\u Xm_i}\bigr\}$.
+
+The attendance at school $i$ of type $E$, $M$, $H$ is, respectively,
+ $$\u E{\cal A}_i = \sum_{j\in\u E{\cal I}_i} \sum_{k=0}^5 \u kg_j, \quad
+ \u M{\cal A}_i = \sum_{j\in\u M{\cal I}_i} \sum_{k=6}^9 \u kg_j, \quad
+ \u H{\cal A}_i = \sum_{j\in\u H{\cal I}_i} \sum_{k=10}^{12} \u kg_j.$$
+The physical capacity constraints of the schools are therefore
+ $$\displaylines{(1-\tau)\u Ec_i \le \u E{\cal A}_i \le (1+\tau)\u Ec_i,
+ \qquad i=1,\ldots,\EnS, \cr
+ (1-\tau)\u Mc_i \le \u M{\cal A}_i \le (1+\tau)\u Mc_i,
+ \qquad i=1,\ldots,\MnS, \cr
+ (1-\tau)\u Hc_i \le \u H{\cal A}_i \le (1+\tau)\u Hc_i,
+ \qquad i=1,\ldots,\HnS, \cr}$$
+and the capacity constraints from the 5-year projected enrollment would be
+ $$\displaylines{(1-\tau)\u Ec_i \le \sum_{j\in\u E{\cal I}_i} \u Eg_j
+ \le (1+\tau)\u Ec_i, \qquad i=1,\ldots,\EnS, \cr
+ (1-\tau)\u Mc_i \le \sum_{j\in\u M{\cal I}_i} \u Mg_j
+ \le (1+\tau)\u Mc_i, \qquad i=1,\ldots,\MnS, \cr
+ (1-\tau)\u Hc_i \le \sum_{j\in\u H{\cal I}_i} \u Hg_j
+ \le (1+\tau)\u Hc_i, \qquad i=1,\ldots,\HnS, \cr}$$
+where $\tau=0.2$ has been chosen by the School Board.
+
+For nonempty $A,B \subset\{1,\ldots,n\}$, let ${\cal G}_{A,B}$ be the
+submatrix of $\cal G$ with rows (columns) indexed by $A$ ($B$).  Thinking
+of the graph defined by the student planning areas as nodes and arcs defined
+by student planning area adjacency, each school attendance zone corresponds
+to a subgraph. The school attendance zone is geographically connected if
+its corresponding subgraph is connected. In terms of the adjacency matrix
+$\cal G$, the constraint that $\u X{\cal Z}_i$ be geographically connected
+is that the adjacency matrix ${\cal G}_{\u X{\cal I}_i, \u X{\cal I}_i}$
+be irreducible. How to confirm this matrix property will be discussed in
+detail later.
+
+It is convenient to represent these partition subsets $\u X{\cal Z}_i$
+and index sets $\u X{\cal I}_i$ by binary variables 
+ $$\u X W_{ij} = \cases{1,& if SPA $j$ is assigned to SAZ $i$,\cr
+ 0,& otherwise,\cr}$$
+for $i=1$, $\ldots$, $\EnS$ ($X=E$),
+$i=1$, $\ldots$, $\MnS$ ($X=M$),
+$i=1$, $\ldots$, $\HnS$ ($X=H$),
+and $j=1$, $\ldots$, $n$.
+Each of the 0-1 matrices $\u X W$
+has exactly one 1 in each column. Define the population barycenter of
+school attendance zone $\u X{\cal Z}_i$ for each school type $X$ as
+ $$\displaylines{\u E(\bar x_i,\bar y_i) = \sum_{j\in\u E{\cal I}_i}
+ \left({\sum\limits_{k=0}^5 \u kg_j\Big/ \u E{\cal A}_i}\right) (x_j,y_j),\cr
+ \u M(\bar x_i,\bar y_i) = \sum_{j\in\u M{\cal I}_i}
+ \left({\sum\limits_{k=6}^9 \u kg_j\Big/ \u M{\cal A}_i}\right) (x_j,y_j),\cr
+ \u H(\bar x_i,\bar y_i) = \sum_{j\in\u H{\cal I}_i}
+ \left({\sum\limits_{k=10}^{12} \u kg_j\Big/ \u H{\cal A}_i}\right)
+ (x_j,y_j).\cr}$$
+Achieving optimal school attendance zone compactness is then similar to
+$K$-means clustering of the SPA centers using the 2-norm, and achieving
+student proximity to schools uses the 1-norm (which captures travel time
+better than the Euclidean 2-norm distance): assign student planning areas
+$\sigma_j$ to $\EnS$, $\MnS$, $\HnS$ school attendance zones
+$\u E{\cal Z}_i$, $\u M{\cal Z}_i$, $\u H{\cal Z}_i$, respectively, to
+minimize 
+ $$\eqalignno{
+ \Phi(\u EW,\u M\!W,\u H\!W) = &\sum_{i=1}^{\EnS} \sum_{j\in\u E{\cal I}_i}
+ \bigl\|(x_j,y_j) - \u E(\bar x_i,\bar y_i)\bigr\|_2^2 +
+ \sum_{i=1}^{\MnS} \sum_{j\in\u M{\cal I}_i}
+ \bigl\|(x_j,y_j) - \u M(\bar x_i,\bar y_i)\bigr\|_2^2 +{}\cr
+ &\sum_{i=1}^{\HnS} \sum_{j\in\u H{\cal I}_i}
+ \bigl\|(x_j,y_j) - \u H(\bar x_i,\bar y_i)\bigr\|_2^2 +
+ \gamma\left( \sum_{i=1}^{\EnS} 
+ \bigl\|(\u Ex_i,\u Ey_i) - \u E(\bar x_i,\bar y_i)\bigr\|_1 \right. +{}\cr
+ &\left.\sum_{i=1}^{\MnS}
+ \bigl\|(\u Mx_i,\u My_i) - \u M(\bar x_i,\bar y_i)\bigr\|_1 +
+ \sum_{i=1}^{\HnS}
+ \bigl\|(\u Hx_i,\u Hy_i) - \u H(\bar x_i,\bar y_i)\bigr\|_1 \right),\cr}$$
+subject to the school capacity and school attendance zone
+connectivity constraints. $\gamma\gg1$ weights the relative importance of
+proximity to compactness. There are several alternative ways to deal with the
+compactness and proximity objectives. For proximity, one could use all the SPA
+center to school distances (within a SAZ) rather than the single SAZ
+barycenter to school distance as above. One could also formulate a
+multiobjective optimization problem with a compactness objective (first three
+terms of $\Phi$) and a proximity objective (last three terms of $\Phi$),
+however, each Pareto optimal solution of this multiobjective formulation
+corresponds to some choice of $\gamma$ in the above formulation.
+
+The binary variables $\u XW_{ij}$ simplify the expressions and calculations.
+For instance, if a population vector $\u EP$ of length $n$ were formed with
+$j$th element being $\sum_{k=0}^5 \u kg_j$, then the capacity constraint
+ $$(1-\tau)\u Ec_i \le \u E{\cal A}_i \le (1+\tau)\u Ec_i$$
+would become simply
+ $$(1-\tau)\u Ec_i \le (\u EW \u EP)_i \le (1+\tau)\u Ec_i$$
+in terms of $\u EW$.
+
+Let $e=(1$, $\ldots$, $1)\in\Rn$, and $\hbox{diag}
+({\cal G}e)$ be the $n\times n$ diagonal matrix whose diagonal elements are
+the degrees of the nodes in the graph $G$ with adjacency matrix $\cal G$.
+The {\it graph Laplacian\/} of the graph $G$ is defined as
+ $$\Lambda(G) = \hbox{diag}({\cal G}e) - {\cal G},$$
+and $G$ is connected if and only if $\cal G$ is irreducible if and only if
+the second smallest eigenvalue of $\Lambda(G)$ is not zero. Hence the SAZ
+$\u X{\cal Z}_i$ is connected if and only if the second smallest eigenvalue of
+the graph Laplacian
+ $$\hbox{diag}\bigl({\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i} \>e\bigr) -
+ {\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i}$$
+of the subgraph of $G$ corresponding to $\u X{\cal Z}_i$ is not zero;
+$e\in\real^{\u Xm_i}$ here. Since the graph Laplacian matrix is symmetric and
+positive semidefinite, the connectedness constraints for the SAZs can
+be taken as
+ $$0.001 - \bigl(\hbox{second smallest eigenvalue of diag}
+ \bigl({\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i} \>e\bigr) -
+ {\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i}\bigr) \le 0$$
+for $i=1,\ldots,\u Xn_S$. Here, as always, $X$ represents any of $E$, $M$, or
+$H$. An alternative to these eigenvalue constraints,
+which cannot be expressed in closed form but are computationally cheap,
+is to express graph connectivity by (exponentially many) linear constraints.
+For brevity, denote the nodes of the graph $G$ by the student planning
+area indices, and for $\emptyset \ne S \subset \{1$, $\ldots$, $n\}$, define the
+neighborhood of $S$ by 
+ $$N(S)=S \cup \bigl\{m\mid m \hbox{ is adjacent to some }j\in S\bigr\},$$
+i.e., $N(S)$ represents all student planning areas either represented by $S$ or adjacent to some student planning area represented by $S$. 
+Then the school attendance zones $\u X{\cal Z}_i$ are connected
+if $\forall i=1$, $\ldots$, $\u Xn_S$, $\forall\ell=1$, $\ldots$, $n$,
+$\forall S \subset\{1$, $\ldots$, $n\} \backslash N(\{\ell\}) \ne\emptyset$,
+ $$\sum_{j\in N(S)\backslash S} \u XW_{ij} -
+ \sum_{j\in S\cup\{\ell\}} \u XW_{ij} \ge 1-(|S|+1),$$
+which is ${\cal O}(\u Xn_S n2^n)$ constraints.
+
+The problem is clearly separable in the variables $\u EW$, $\u MW$,
+$\u HW$, since the objective function $\Phi$ is separable, and the school
+districting constraints for elementary, middle, and high schools are
+completely independent of each other. While formulated here as a single
+optimization problem, in practice the problems for the three school types
+are solved separately. Having said this, the full problem is now stated.
+
+For convenience, define population vectors $\u EP$, $\u MP$, $\u HP$ of
+length $n$ with $j$th element being $\sum_{k=0}^5 \u kg_j$,
+$\sum_{k=6}^9 \u kg_j$, $\sum_{k=10}^{12} \u kg_j$, respectively.
+The variables are $\u EW \in\{0,1\}^{\EnS\times n}$,
+$\u MW \in\{0,1\}^{\MnS\times n}$, and $\u HW \in\{0,1\}^{\HnS\times n}$.
+The optimization problem is
+ $$\displaylines{
+ \min_{\u EW,\u MW,\u HW} \Phi\bigl(\u EW,\u MW,\u HW\bigr)\cr
+ \hbox{subject to}\hfill\cr
+ (1-\tau)\u Xc_i \le (\u XW \u XP)_i \le (1+\tau)\u Xc_i,
+ \qquad \forall X\in\{E,M,H\} \quad\forall i,\cr
+ (1-\tau)\u Xc_i \le \sum_{j=1}^n\u XW_{ij}\>\u Xg_j \le (1+\tau)\u Xc_i,
+ \qquad \forall X\in\{E,M,H\} \quad\forall i,\cr
+ 0.001 - \bigl(\hbox{second smallest eigenvalue of diag}
+ \bigl({\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i} \>e\bigr) -
+ {\cal G}_{\u X{\cal I}_i,\u X{\cal I}_i}\bigr) \le 0,\quad
+ \forall X\in\{E,M,H\} \;\forall i.\cr}$$
+
+\bye %%%%%%%%%
+
+
+A typical approach (called scalarization) to solving multiobjective
+optimization problems is to solve the problem
+ $$\displaylines{\min_{Z\in\{0,1\}^{k\times n}}
+ (1-\lambda)\Phi(Z) + \lambda\Psi(Z) \quad \hbox{subject to}\cr
+ \sum_{i=1}^k Z_{ij}=1 \quad\hbox{for }j=1,\ldots,n,\cr
+ \max_{1\le i<j \le k} |(ZP)_i-(ZP)_j| - {\cal S}_{\max} \le0,\cr
+ 0.001 - \bigl(\hbox{second smallest eigenvalue of diag}
+ \bigl({\cal G}_{{\cal I}_i{\cal I}_i}e\bigr) -
+ {\cal G}_{{\cal I}_i{\cal I}_i}\bigr) \le 0, \quad
+ \hbox{for }i=1,\ldots,k,\cr}$$
+for $\lambda$ in $0\le\lambda\le1$. The set of points
+$\bigl(\Phi(\hat Z),\Psi(\hat Z)\bigr)$ in objective function space
+corresponding to Pareto optimal solutions $\hat Z$ is called the {\it
+Pareto front\/} or Pareto manifold, and (in the case here of two objectives)
+may be a smooth convex or concave curve, or even a disconnected point set.
+A practical difficulty is that the spacing of points along the Pareto front
+(curve) may not correspond to the spacing between the corresponding $\lambda$
+values.  A strategy for choosing $\lambda$ values to efficiently approximate
+the Pareto front was addressed recently in [Deshpande et al., 2016].
+
+
+
+\bye
+
