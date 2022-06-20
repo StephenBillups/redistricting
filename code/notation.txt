@@ -1,0 +1,16 @@
+
+Sets
+
+   SPAs = set of school planning areas    1,...,n
+   SAZs = set of school attendance zones  1,...,k
+ 
+Index arrays
+   SAZ_centers    indices of SPAs that are SAZ centers
+       SAZ_centers[j] = SPA that contains the school for SAZ j
+      
+Parameters
+   pop    populations of the SPAs (length n)
+   low_bounds, up_bounds    lower and upper enrollment bounds (length k)
+   adj_matrix    n x n adjacency matrix for the contiguity graph
+   dist_to_schools   n x k distance matrix
+       dist_to_schools[i,j] = distance of SPA i to SAZ j 
